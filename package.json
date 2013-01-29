@@ -1,0 +1,11 @@
+{
+  "name": "pyrite-apps",
+  "version": "0.0.1",
+  "dependencies": {
+    "grunt-clean": "0.4.0",
+    "grunt-memrev": "git+ssh://git@github.com:reputation/grunt-memrev.git",
+    "grunt-tpl": "git+ssh://git@github.com:reputation/grunt-tpl.git",
+    "grunt-namespace": "git+ssh://git@github.com:jeff-harnois/grunt-namespace.git"
+  },
+  "private": true
+}
