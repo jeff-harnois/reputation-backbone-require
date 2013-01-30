@@ -70,12 +70,7 @@ jQuery(function($) {
   // Defining the application router
   main.Router = Backbone.Router.extend({
     routes: {
-      // "a": "a",
-      // "b": "b"
-      "*splat": "defaultFunction"
-      // ":page": "defaultFunction",
-      // ":page/:route": "defaultFunction"
-      // "stream": "getStream"
+      "*splat": "handleMainRoute"
     },
 
     // templateVars will be rendered here
@@ -85,7 +80,7 @@ jQuery(function($) {
     // name: "templateVar($eName)",
 
 
-    defaultFunction: function(splat) {
+    handleMainRoute: function(splat) {
       var self = this,
           route = {
             "a": {
@@ -100,90 +95,99 @@ jQuery(function($) {
           currRoute,
           oldSplat = null;
       if (splat.indexOf('/') !== -1) {
-        console.log('!== -1');
         oldSplat = "/"+splat;
         splat = splat.slice(0,splat.indexOf('/'));
+      } else {
+        // main.app.navigate("//a/", true);
       }
       currRoute = route[splat];
-      console.log('defaultFunction' + splat);
+      console.log('handleMainRoute ' + splat);
       console.log(oldSplat);
 
       require([
         "/dist/main/debug/"+currRoute.router+".module.js"
       ],
       function(module) {
-        var Obj;
+        var match, count, obj = {}, mod,
+            substr, data = [];
+        
+
+        function indexes(source, find) {
+          var result = [];
+          for(i = 0;i < source.length; i++) {
+            if (source.substring(i, i + find.length) == find) {
+              result.push(i);
+            }
+          }
+          return result;
+        }
+
         window[currRoute.global] = module;
-        this[currRoute.router] = new module.Router();
+        mod = new module.Router();
+
+
+        // this block of logic is written to figure out which subroute to use
+        // and then calls that subroute with the params;
+
+        // if there is a route
         if (oldSplat !== null) {
-          if (this[currRoute.router].routes) {
-            if (this[currRoute.router].routes[oldSplat]) {
-              this[currRoute.router][this[currRoute.router].routes[oldSplat]]();
+          if (mod.routes) {
+
+            // if there is subrouting in the module
+            if (mod.routes[oldSplat]) {
+
+              // if the route matches exactly with a router from the module
+              mod[mod.routes[oldSplat]]();
             } else {
-              var obj = {}, match, matches = [];
-              _.each(this[currRoute.router].routes, function(v, k) {
-                match = k.match(/:\w+/g);
-                if (match !== null) {
-                  _.each(match, function(e) {
-                    if (matches.indexOf(e.replace(':','')) === -1) {
-                      matches.push(e.replace(':',''));
-                    }
-                  });
+
+              var Arr = oldSplat.split('/'),
+                  numTrue = 0,
+                  options = [];
+              _.each(Arr, function(e, i) {
+                if (e === '') {
+                  Arr.splice(i, i+1);
                 }
               });
-              // this[currRoute.router][this[currRoute.router].routes[oldSplat]](matches);
-              console.log('matches');
-              console.log(matches);
+
+              _.each(mod.routes, function(e, i) {
+                var a = [];
+                a = i.split('/');
+                _.each(a, function(el, ind) {
+                  if (el === '') {
+                    a.splice(ind, ind+1);
+                  }
+                });
+                
+                obj[e] = a;
+              });
+              
+              _.each(obj, function(e, i) {
+                if (e.length === Arr.length) {
+                  numTrue = 0;
+                  _.each(e, function(el, ind){
+                    if (el === Arr[ind]) {
+                      numTrue = numTrue + 1;
+                    } else {
+                      if (el.indexOf(':') !== -1) {
+                        numTrue = numTrue + 1;
+                        options.push(Arr[ind].replace(':',''));
+                      } else {
+                        numTrue = numTrue - 1;
+                      }
+                    }
+                  });
+                  if (numTrue === Arr.length) {
+                    mod[i].apply(this, options);
+                  }
+                }
+              });
             }
           }
 
 
         }
       });
-
-      // if (splat === "a") {
-      //   require([
-      //     "/dist/main/debug/module1.module.js"
-      //   ],
-      //   function(module) {
-      //     // module.init();
-      //     console.log('callback');
-      //     console.log(module);
-      //     Module1 = module;
-      //     this.module1 = new Module1.Router();
-      //     this.module1.defaultFunction();
-      //   });
-      // } else if (splat === "b") {
-      //   require([
-      //     "/dist/main/debug/module2.module.js"
-      //   ],
-      //   function(module) {
-      //     // module.init();
-      //     console.log('callback');
-      //     console.log(module);
-      //     Module2 = module;
-      //     this.module2 = new Module2.Router();
-      //     this.module2.defaultFunction();
-      //   });
-      // }
     }
-
-    // b: function() {
-    //   var self = this;
-    //   console.log('defaultFunction b');
-
-    //   require([
-    //     "/dist/main/debug/module2.module.js"
-    //   ],
-    //   function(module) {
-    //     // module.init();
-    //     console.log('callback');
-    //     console.log(module);
-    //     Module2 = module;
-    //     this.module2 = new Module2.Router();
-    //     this.module2.defaultFunction();
-    //   });
-    // }
   });
 
   // Define the master router on the application namespace and trigger all
