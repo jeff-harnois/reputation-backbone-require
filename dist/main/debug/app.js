@@ -82,27 +82,26 @@ jQuery(function($) {
 
     handleMainRoute: function(splat) {
       var self = this,
-          route = {
-            "a": {
-              "global": "Module1",
-              "router": "module1" 
-            },
-            "b": {
-              "global": "Module2",
-              "router": "module2" 
-            }
-          },
+          route = {},
           currRoute,
           oldSplat = null;
+
+      route = {
+        "a": {
+          "global": "Module1",
+          "router": "module1" 
+        },
+        "b": {
+          "global": "Module2",
+          "router": "module2" 
+        }
+      };
+
       if (splat.indexOf('/') !== -1) {
         oldSplat = "/"+splat;
         splat = splat.slice(0,splat.indexOf('/'));
-      } else {
-        // main.app.navigate("//a/", true);
       }
       currRoute = route[splat];
-      console.log('handleMainRoute ' + splat);
-      console.log(oldSplat);
 
       require([
         "/dist/main/debug/"+currRoute.router+".module.js"
@@ -124,7 +123,6 @@ jQuery(function($) {
 
         window[currRoute.global] = module;
         mod = new module.Router();
-
 
         // this block of logic is written to figure out which subroute to use
         // and then calls that subroute with the params;
