@@ -4,57 +4,52 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     lint: {
-      // files: ["src/on/config.js", "src/on/**/*.js"]
-      files: ["**/*.js"]
+      files: ["Modules/**/*.js", "main.app.js"]
     },
 
     clean: {
-      // folder: "../Assets/Apps",
-      // tmpDir: "/tmp/backbone"
       folder: "dist"
     },
 
     tpl: {
-      // "/tmp/backbone/templates.js": ["templates/**/*.mustache"]
+      "/tmp/backbone/templates.js": ["Templates/**/*.mustache"]
     },
 
-    // namespace: {
-    //   "../Assets/Apps/on/debug/js/namespace.js": ["namespace.mustache"]
-    // },
-
     concat: {
+      // Libs files
+      "dist/build.js": [
+        "libs/jquery-require-amd.js",
+        "libs/underscore-amd.js",
+        "libs/backbone.js"
+      ],
       // Application files
-      // "../Assets/Apps/on/debug/js/app.js": [
-      //   "../Assets/Apps/on/debug/js/templates.js", 
-      //   "../Assets/Apps/on/debug/js/namespace.js",
-      //   "src/on/modules/**/*.js",
-      //   "src/on/on.app.js",
-      //   "main.js",
-      //   "models/MyPrivacyManager/loadEntityAttributes.js",
-      //   "models/SearchResultsManager/getSearchResults.js"
-      // ]
+      "dist/main/debug/app.js": [
+        "/tmp/backbone/templates.js", 
+        "namespace.js",
+        "main.app.js",
+        "main.js",
+        "namespace.js"
+      ],
+      // Module files
+      "dist/main/debug/module1.module.js": [
+        "Modules/module1.module.js"
+      ],
+      "dist/main/debug/module2.module.js": [
+        "Modules/module2.module.js"
+      ]
     },
 
     min: {
-      // "../Assets/Apps/on/release/js/app.js": ["../Assets/Apps/on/debug/js/app.js"],
-      // "../Assets/Apps/on/release/js/templates.js": ["../Assets/Apps/on/debug/js/templates.js"]
-    },
-
-    memrev: {
-      // 'smarty-artie': ['../Assets/Apps/on/release/js/*.js','../Assets/Apps/on/js/*.js']
+      "dist/build.js": ["dist/build.js"],
+      "dist/main/release/app.js": ["dist/main/debug/app.js"],
+      "dist/main/release/module1.module.js": ["dist/main/debug/module1.module.js"],
+      "dist/main/release/module2.module.js": ["dist/main/debug/module2.module.js"]
     }
   });
 
-  // up 2 directories on -> src
-  // grunt.file.setBase('../../');
-
   grunt.loadNpmTasks('grunt-clean');
-  grunt.loadNpmTasks('grunt-memrev');
   grunt.loadNpmTasks('grunt-tpl');
-  // grunt.loadNpmTasks('grunt-namespace');
 
   // Run the following tasks...
-  // grunt.registerTask('default', 'lint:files clean namespace tpl concat min memrev');
-  grunt.registerTask('default', 'lint:files clean tpl concat min memrev');
-
+  grunt.registerTask('default', 'lint:files clean tpl concat min');
 };

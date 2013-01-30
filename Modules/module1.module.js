@@ -12,11 +12,12 @@ function() {
 
   Firstmodule.Router = Backbone.Router.extend({
     routes: {
+      "/a": "defaultFunction",
       "/a/test": "newTest"
     },
     defaultFunction: function() {
       var self = this;
-      console.log('router default function');
+      console.log('[view] default function');
     },
     newTest: function() {
       console.log('new test');
