@@ -79,6 +79,56 @@ jQuery(function($) {
     // user_id: "templateVar($user_id)",
     // name: "templateVar($eName)",
 
+    extractRoutes: function(hash, mod) {
+      // this function will handle all of the logic to determine which sub-route to use, 
+      // as well as what options we need to pass along
+      var Arr = hash.split('/'),
+          numTrue = 0,
+          options = [],
+          routeFound,
+          obj = {},
+          resp = null;
+      _.each(Arr, function(e, i) {
+        if (e === '') {
+          Arr.splice(i, i+1);
+        }
+      });
+
+      _.each(mod.routes, function(e, i) {
+        var a = [];
+        a = i.split('/');
+        _.each(a, function(el, ind) {
+          if (el === '') {
+            a.splice(ind, ind+1);
+          }
+        });
+        
+        obj[e] = a;
+      });
+      
+      _.each(obj, function(e, i) {
+        if (e.length === Arr.length) {
+          numTrue = 0;
+          _.each(e, function(el, ind){
+            if (el === Arr[ind]) {
+              numTrue = numTrue + 1;
+            } else {
+              if (el.indexOf(':') !== -1) {
+                numTrue = numTrue + 1;
+
+                options.push(Arr[ind].replace(':',''));
+              } else {
+                numTrue = numTrue - 1;
+              }
+            }
+          });
+          if (numTrue === Arr.length) {
+            resp = [i, options];
+          }
+        }
+      });
+      return resp;
+    },
 
     handleMainRoute: function(splat) {
       var self = this,
@@ -107,13 +157,12 @@ jQuery(function($) {
         "/dist/main/debug/"+currRoute.router+".module.js"
       ],
       function(module) {
-        var match, count, obj = {}, mod,
-            substr, data = [];
+        var mod, extractedRoute;
         
 
         function indexes(source, find) {
           var result = [];
-          for(i = 0;i < source.length; i++) {
+          for(var i = 0;i < source.length; i++) {
             if (source.substring(i, i + find.length) == find) {
               result.push(i);
             }
@@ -138,47 +187,13 @@ jQuery(function($) {
               mod[mod.routes[oldSplat]]();
             } else {
 
-              var Arr = oldSplat.split('/'),
-                  numTrue = 0,
-                  options = [];
-              _.each(Arr, function(e, i) {
-                if (e === '') {
-                  Arr.splice(i, i+1);
-                }
-              });
-
-              _.each(mod.routes, function(e, i) {
-                var a = [];
-                a = i.split('/');
-                _.each(a, function(el, ind) {
-                  if (el === '') {
-                    a.splice(ind, ind+1);
-                  }
-                });
-                
-                obj[e] = a;
-              });
+              // else we need to use the helper function to see if the route
+              // exists.
               
-              _.each(obj, function(e, i) {
-                if (e.length === Arr.length) {
-                  numTrue = 0;
-                  _.each(e, function(el, ind){
-                    if (el === Arr[ind]) {
-                      numTrue = numTrue + 1;
-                    } else {
-                      if (el.indexOf(':') !== -1) {
-                        numTrue = numTrue + 1;
-                        options.push(Arr[ind].replace(':',''));
-                      } else {
-                        numTrue = numTrue - 1;
-                      }
-                    }
-                  });
-                  if (numTrue === Arr.length) {
-                    mod[i].apply(this, options);
-                  }
-                }
-              });
+              extractedRoute = self.extractRoutes(oldSplat, mod);
+              if (extractedRoute !== null) {
+                mod[extractedRoute[0]].apply(this, extractedRoute[1]);
+              }
             }
           }
 
