@@ -12,8 +12,8 @@ function() {
 
   Firstmodule.Router = Backbone.Router.extend({
     routes: {
-      "/m/a": "defaultMobile",
-      "/a": "defaultFunction"
+      "/m/login": "defaultMobile",
+      "/login": "defaultFunction"
     },
     defaultMobile: function() {
       self.currentRequest = new Firstmodule.Views.Mobile();
@@ -31,14 +31,15 @@ function() {
   Firstmodule.Views.Desktop = Backbone.View.extend({
     template: "embed",
     render: function() {
-      $('body').html(main.fetchAndRender(this.template, {}));
+      $('body').append('<link type="text/css" rel="stylesheet" href="http://qa.reputation.com/pub/assets/css/w_loggedout_2201718d2492d8180437c23f86913006.css"><link type="text/css" rel="stylesheet" href="http://qa.reputation.com/pub/assets/css/p_login_a6a7110d244b46e311ef9a21a8aabe99.css">');
+      $('body').append(main.fetchAndRender(this.template, {partial: "d-login"}));
     }
   });
 
   Firstmodule.Views.Mobile = Backbone.View.extend({
     template: "mobile",
     render: function() {
-      $('body').html(main.fetchAndRender(this.template, {}));
+      $('body').html(main.fetchAndRender(this.template, {partial: "m-login"}));
     }
   });
 

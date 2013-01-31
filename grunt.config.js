@@ -15,7 +15,9 @@ module.exports = function(grunt) {
     tpl: {
       "/tmp/backbone/module1/templates.js": [
         "Templates/embed.mustache",
-        "Templates/mobile.mustache"
+        "Templates/mobile.mustache",
+        "Templates/d-login.mustache",
+        "Templates/m-login.mustache"
       ],
       "/tmp/backbone/module2/templates.js": [
         "Templates/embed.mustache",

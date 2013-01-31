@@ -19,6 +19,14 @@
       }
     },
 
+    overrideMobile: function(override) {
+      if (!override || override === false) {
+        this.phoneOverride = false;
+      } else {
+        this.phoneOverride = true;
+      }
+    },
+
     handleMainRoute: function(splat) {
       var self = this,
           route = {},
@@ -31,7 +39,7 @@
       // this is the route object, it's basically an .htaccess rule set
       // this is the only piece of logic that should change with any frequency
       route = {
-        "a": "Module1",
+        "login": "Module1",
         "b": "Module2"
       };
 
