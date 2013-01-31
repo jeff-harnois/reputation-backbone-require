@@ -12,25 +12,33 @@ function() {
 
   Firstmodule.Router = Backbone.Router.extend({
     routes: {
-      "/a": "defaultFunction",
-      "/a/test": "newTest"
+      "/m/a": "defaultMobile",
+      "/a": "defaultFunction"
+    },
+    defaultMobile: function() {
+      self.currentRequest = new Firstmodule.Views.Mobile();
+      self.currentRequest.render();
     },
     defaultFunction: function() {
       var self = this;
       console.log('[view] default function');
-    },
-    newTest: function() {
-      console.log('new test');
-      // this.currentRequest = Firstmodule.Views.Start();
-      // this.currentRequest.render();
+      self.currentRequest = new Firstmodule.Views.Desktop();
+      self.currentRequest.render();
     }
   });
 
   // Default View.
-  Firstmodule.Views.Start = Backbone.View.extend({
+  Firstmodule.Views.Desktop = Backbone.View.extend({
     template: "embed",
     render: function() {
+      $('body').html(main.fetchAndRender(this.template, {}));
+    }
+  });
 
+  Firstmodule.Views.Mobile = Backbone.View.extend({
+    template: "mobile",
+    render: function() {
+      $('body').html(main.fetchAndRender(this.template, {}));
     }
   });
 

@@ -14,21 +14,17 @@ function() {
     routes: {
       "/b/test": "newTest",
       "/b/test/:page": "page",
-      "/b/test/:page/p/:test": "pageTest"
+      "/b/test/:page/p/:test": "pageTest",
+      "/m/b/test": "mobileTest",
+      "/m/b/test/:page": "mobilePage",
+      "/m/b/test/:page/p/:test": "mobilePageTest"
       // "/b/test/:page/p/:test": "pageTest",
       // "/b/routes/:route": "routeTest"
-    },
-    defaultFunction: function() {
-      var self = this;
-      // console.log('router default function');
-      // console.log('backbone history fragment');
-      // console.log('/'+Backbone.history.fragment);
-      // main.app.navigate(Backbone.history.fragment, {trigger: true, replace: true});
     },
     newTest: function() {
       console.log('[view] new test');
       // this.currentRequest = Secondmodule.Views.Start();
-      // this.currentRequest.render();
+      // this.currentRequest.render(); 
     },
     page: function(page) {
       console.log('[view] page is '+page);
@@ -36,8 +32,20 @@ function() {
     pageTest: function(page, test) {
       console.log('[view] pageTest is '+page+' and '+test);
     },
-    routeTest: function(route) {
-      console.log('[view] routeTest is '+route);
+    mobileTest: function() {
+      alert('[mobile view] new test');
+      // this.currentRequest = Secondmodule.Views.Start();
+      // this.currentRequest.render(); 
+    },
+    mobilePage: function(page) {
+      alert('[mobile view] page test is '+page);
+      // this.currentRequest = Secondmodule.Views.Start();
+      // this.currentRequest.render(); 
+    },
+    mobilePageTest: function(page, test) {
+      alert('[mobile view] pageTest is '+page+' and '+test);
+      // this.currentRequest = Secondmodule.Views.Start();
+      // this.currentRequest.render(); 
     }
   });
 

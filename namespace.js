@@ -20,6 +20,12 @@ var main = {
   fetchAndRender: function(tpl,info) {
     window.Templates = window.templates || {};
 
+    console.log('tpl');
+    console.log(tpl);
+    console.log("info");
+    console.log(info);
+
+
     // make sure that the template has been Templatized
     if (Templates[tpl]) {
       var h = Hogan.compile(Templates[tpl]);

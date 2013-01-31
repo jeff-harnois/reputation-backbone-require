@@ -8,11 +8,19 @@ module.exports = function(grunt) {
     },
 
     clean: {
-      folder: "dist"
+      folder: "dist",
+      tmp: "/tmp/backbone"
     },
 
     tpl: {
-      "/tmp/backbone/templates.js": ["Templates/**/*.mustache"]
+      "/tmp/backbone/module1/templates.js": [
+        "Templates/embed.mustache",
+        "Templates/mobile.mustache"
+      ],
+      "/tmp/backbone/module2/templates.js": [
+        "Templates/embed.mustache",
+        "Templates/mobile.mustache"
+      ]
     },
 
     concat: {
@@ -20,11 +28,12 @@ module.exports = function(grunt) {
       "dist/build.js": [
         "libs/jquery-require-amd.js",
         "libs/underscore-amd.js",
-        "libs/backbone.js"
+        "libs/backbone.js",
+        "rbr.js",
+        "libs/hogan.js"
       ],
       // Application files
       "dist/main/debug/app.js": [
-        "/tmp/backbone/templates.js", 
         "namespace.js",
         "main.app.js",
         "main.js",
@@ -32,15 +41,17 @@ module.exports = function(grunt) {
       ],
       // Module files
       "dist/main/debug/module1.module.js": [
-        "Modules/module1.module.js"
+        "Modules/module1.module.js",
+        "/tmp/backbone/module1/**/*.js"
       ],
       "dist/main/debug/module2.module.js": [
-        "Modules/module2.module.js"
+        "Modules/module2.module.js",
+        "/tmp/backbone/module2/**/*.js"
       ]
     },
 
     min: {
-      "dist/build.js": ["dist/build.js"],
+      // "dist/build.js": ["dist/build.js"],
       "dist/main/release/app.js": ["dist/main/debug/app.js"],
       "dist/main/release/module1.module.js": ["dist/main/debug/module1.module.js"],
       "dist/main/release/module2.module.js": ["dist/main/debug/module2.module.js"]
