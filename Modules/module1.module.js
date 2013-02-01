@@ -21,7 +21,6 @@ function() {
     },
     defaultFunction: function() {
       var self = this;
-      console.log('[view] default function');
       self.currentRequest = new Firstmodule.Views.Desktop();
       self.currentRequest.render();
     }
@@ -31,15 +30,19 @@ function() {
   Firstmodule.Views.Desktop = Backbone.View.extend({
     template: "embed",
     render: function() {
+      var isPhone = false;
+      if (main.app.isPhone === true) {
+        isPhone = "isPhone";
+      }
+      $('body').html(main.fetchAndRender(this.template, {partial: ["d-login", "d-override"], isPhone: isPhone}));
       $('body').append('<link type="text/css" rel="stylesheet" href="http://qa.reputation.com/pub/assets/css/w_loggedout_2201718d2492d8180437c23f86913006.css"><link type="text/css" rel="stylesheet" href="http://qa.reputation.com/pub/assets/css/p_login_a6a7110d244b46e311ef9a21a8aabe99.css">');
-      $('body').append(main.fetchAndRender(this.template, {partial: "d-login"}));
     }
   });
 
   Firstmodule.Views.Mobile = Backbone.View.extend({
     template: "mobile",
     render: function() {
-      $('body').html(main.fetchAndRender(this.template, {partial: "m-login"}));
+      $('body').html(main.fetchAndRender(this.template, {partial: ["m-login", "m-override"]}));
     }
   });
 

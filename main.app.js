@@ -22,8 +22,11 @@
     overrideMobile: function(override) {
       if (!override || override === false) {
         this.phoneOverride = false;
+        main.app.navigate("//m/"+Backbone.history.getFragment(), true);
       } else {
         this.phoneOverride = true;
+        var url = Backbone.history.getFragment().replace('m/','');
+        main.app.navigate("//"+url, true);
       }
     },
 
@@ -36,12 +39,8 @@
           oldSplat = null,
           mod;
 
-      // this is the route object, it's basically an .htaccess rule set
-      // this is the only piece of logic that should change with any frequency
-      route = {
-        "login": "Module1",
-        "b": "Module2"
-      };
+      // this is the route object, it's basically an .htaccess rule set, and is defined in routes.js
+      route = rbr.routes;
 
       // mobile/desktop redirects
       if (self.isPhone === true && self.phoneOverride === false && (splat.indexOf('m/') === -1 || splat.indexOf('m/') !== 0)) {
@@ -118,6 +117,7 @@
             }
           }
         } else {
+
           // as a last resort, let's see if there is a defaultFunction and try and call that
           if (typeof(m.defaultFunction) === 'function') {
             m.defaultFunction();

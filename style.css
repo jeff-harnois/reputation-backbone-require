@@ -79,7 +79,8 @@ body {
 
 .mobile footer,
 .mobile footer ul li,
-.mobile footer ul li a {
+.mobile footer ul li a,
+.mobile a {
   color: white;
 }
 

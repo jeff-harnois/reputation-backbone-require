@@ -17,7 +17,9 @@ module.exports = function(grunt) {
         "Templates/embed.mustache",
         "Templates/mobile.mustache",
         "Templates/d-login.mustache",
-        "Templates/m-login.mustache"
+        "Templates/m-login.mustache",
+        "Templates/d-override.mustache",
+        "Templates/m-override.mustache"
       ],
       "/tmp/backbone/module2/templates.js": [
         "Templates/embed.mustache",
@@ -37,6 +39,7 @@ module.exports = function(grunt) {
       // Application files
       "dist/main/debug/app.js": [
         "namespace.js",
+        "routes.js",
         "main.app.js",
         "main.js",
         "namespace.js"

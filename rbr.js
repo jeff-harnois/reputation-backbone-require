@@ -1,3 +1,5 @@
+// this is the reputation-backbone-require common / helper functions
+
 if (typeof rbr !== 'object') {
   rbr = {};
 }
