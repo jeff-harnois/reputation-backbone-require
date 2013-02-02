@@ -3,3 +3,4 @@ node_modules
 .svn
 .idea
 .DS_Store
+Modules/*.module.js
