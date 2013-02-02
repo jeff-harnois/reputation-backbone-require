@@ -12,21 +12,6 @@ module.exports = function(grunt) {
       tmp: "/tmp/backbone"
     },
 
-    tpl: {
-      "/tmp/backbone/module1/templates.js": [
-        "Templates/embed.mustache",
-        "Templates/mobile.mustache",
-        "Templates/d-login.mustache",
-        "Templates/m-login.mustache",
-        "Templates/d-override.mustache",
-        "Templates/m-override.mustache"
-      ],
-      "/tmp/backbone/module2/templates.js": [
-        "Templates/embed.mustache",
-        "Templates/mobile.mustache"
-      ]
-    },
-
     concat: {
       // Libs files
       "dist/build.js": [
@@ -67,5 +52,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-tpl');
 
   // Run the following tasks...
-  grunt.registerTask('default', 'lint:files clean tpl concat min');
+  grunt.registerTask('default', 'lint:files clean concat min');
+  grunt.registerTask('dev', 'lint:files clean concat');
 };

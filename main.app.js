@@ -9,22 +9,22 @@
     },
 
     // "global" variable storage
-    isPhone: false,
-    phoneOverride: false,
+    isMobile: false,
+    mobileOverride: false,
 
     initialize: function() {
       var self = this;
       if ((/iPhone|iPod|iPad|Android|BlackBerry|Opera Mini|IEMobile/).test(ua)) {
-        self.isPhone = true;
+        self.isMobile = true;
       }
     },
 
     overrideMobile: function(override) {
       if (!override || override === false) {
-        this.phoneOverride = false;
+        this.mobileOverride = false;
         main.app.navigate("//m/"+Backbone.history.getFragment(), true);
       } else {
-        this.phoneOverride = true;
+        this.mobileOverride = true;
         var url = Backbone.history.getFragment().replace('m/','');
         main.app.navigate("//"+url, true);
       }
@@ -43,13 +43,13 @@
       route = rbr.routes;
 
       // mobile/desktop redirects
-      if (self.isPhone === true && self.phoneOverride === false && (splat.indexOf('m/') === -1 || splat.indexOf('m/') !== 0)) {
+      if (self.isMobile === true && self.mobileOverride === false && (splat.indexOf('m/') === -1 || splat.indexOf('m/') !== 0)) {
         // if this is a phone, and the display hasn't been overridden and m/ isn't at the beginning of the hash, 
         // redirect them to the mobile url set
 
         main.app.navigate("//m/"+Backbone.history.getFragment(), true);
         return false;
-      } else if ((self.isPhone === false || self.phoneOverride === true) && splat.indexOf('m/') === 0) {
+      } else if ((self.isMobile === false || self.mobileOverride === true) && splat.indexOf('m/') === 0) {
         // if this isn't a phone or they have over-ridden the mobile display and m/ is at the beginning of the hash,
         // redirect them to the desktop url set
 
@@ -63,7 +63,7 @@
         oldSplat = "/"+splat;
 
         // if this is a mobile device and they haven't overridden, update the splat to grab the correct module
-        if (self.isPhone === true && self.phoneOverride === false && splat.indexOf('m/') === 0) {
+        if (self.isMobile === true && self.mobileOverride === false && splat.indexOf('m/') === 0) {
           splat = splat.replace("m/", "");
         }
         // if there is still a /, grab the first word before the /, this is the module

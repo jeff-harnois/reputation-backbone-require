@@ -3,6 +3,5 @@ if (typeof rbr !== 'object') {
 }
 
 rbr.routes = {
-  "login": "Module1",
-  "b": "Module2"
+  "login": "Login"
 };
