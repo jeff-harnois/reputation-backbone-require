@@ -1,15 +1,15 @@
-Router = Backbone.Router.extend({
+Login.Router = Backbone.Router.extend({
   routes: {
     "/m/login": "defaultMobile",
     "/login": "defaultFunction"
   },
   defaultMobile: function() {
-    self.currentRequest = new Firstmodule.Views.Mobile();
+    self.currentRequest = new Login.Views.Mobile();
     self.currentRequest.render();
   },
   defaultFunction: function() {
     var self = this;
-    self.currentRequest = new Firstmodule.Views.Desktop();
+    self.currentRequest = new Login.Views.Desktop();
     self.currentRequest.render();
   }
 });

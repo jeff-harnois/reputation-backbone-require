@@ -4,7 +4,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     lint: {
-      files: ["Modules/**/*.js", "main.app.js"]
+      files: ["main.app.js"]
     },
 
     clean: {
@@ -28,23 +28,15 @@ module.exports = function(grunt) {
         "main.app.js",
         "main.js",
         "namespace.js"
-      ],
-      // Module files
-      "dist/main/debug/module1.module.js": [
-        "Modules/module1.module.js",
-        "/tmp/backbone/module1/**/*.js"
-      ],
-      "dist/main/debug/module2.module.js": [
-        "Modules/module2.module.js",
-        "/tmp/backbone/module2/**/*.js"
       ]
     },
 
     min: {
       // "dist/build.js": ["dist/build.js"],
       "dist/main/release/app.js": ["dist/main/debug/app.js"],
-      "dist/main/release/module1.module.js": ["dist/main/debug/module1.module.js"],
-      "dist/main/release/module2.module.js": ["dist/main/debug/module2.module.js"]
+      "dist/main/release/login.module.js": ["Modules/login.module.js"]
+      // "dist/main/release/module1.module.js": ["Modules/module1.module.js"],
+      // "dist/main/release/module2.module.js": ["Modules/module2.module.js"]
     }
   });
 

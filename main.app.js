@@ -77,7 +77,7 @@
       currRoute = route[splat];
 
       // grab the module based on the currRoute
-      mod = "/dist/main/debug/"+currRoute.toLowerCase()+".module.js";
+      mod = "/dist/main/release/"+currRoute.toLowerCase()+".module.js";
       
       // now that we know what we need to grab, require in that module
       require([
