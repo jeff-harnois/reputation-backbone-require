@@ -43,6 +43,33 @@ module.exports = function(grunt) {
           }
         }
       ]
+    },
+
+    compass: {
+      dev: {
+        src: 'SASS',
+        dest: 'css',
+        specify: 'SASS/modules/login/**/*.sass',
+        outputstyle: 'expanded',
+        // basePath: '/',
+        linecomments: true
+      },
+      prod: {
+        src: 'SASS',
+        dest: 'css',
+        specify: 'SASS/modules/login/**/*.sass',
+        outputstyle: 'compressed',
+        // basePath: '/',
+        forcecompile: true,
+        linecomments: false
+      }
+    },
+
+    watch: { // for development run 'grunt watch'
+      compass: {
+        files: ['SASS/modules/login/*.sass'],
+        tasks: ['compass:dev']
+      }
     }
 
   });
@@ -53,8 +80,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-clean');
   grunt.loadNpmTasks('grunt-tpl');
   grunt.loadNpmTasks('grunt-modules');
+  grunt.loadNpmTasks('grunt-compass');
 
   // Run the following tasks...
   // grunt.registerTask('default', 'lint:files clean tpl concat min');
-  grunt.registerTask('default', 'lint:files clean tpl modules');
+  grunt.registerTask('default', 'lint:files clean compass:prod tpl modules');
 };

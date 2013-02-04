@@ -1,0 +1,101 @@
+
+// Scaffolding
+// margins, padding, positions, borders, etc.
+@import compass/css3/box-sizing
+
+// need better solution than star
+*
+  +box-sizing(border-box)
+  margin: 0
+  padding: 0
+
+body
+  margin: 0
+  // +background-image(image-url('patterns/bg.png'))
+  background-color: #e1e0da
+
+// Corrects block display not defined in IE6/7/8/9 & FF3
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section,
+summary
+  display: block
+
+// your face is responsive
+img,
+embed,
+object,
+video
+  max-width: 100%
+
+// 1. Removes border when inside 'a' element in IE6/7/8/9, FF3
+// 2. Improves image quality when scaled in IE7
+//  code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/
+img
+  border: 0 // 1
+  -ms-interpolation-mode: bicubic // 2
+
+a
+  &:focus
+    outline: thin dotted // Addresses outline displayed oddly in Chrome
+
+h1
+  margin: 0.67em 0
+
+h2
+  margin: 0.83em 0
+
+h3
+  margin: 1em 0
+
+h4
+  margin: 1.33em 0
+
+h5
+  margin: 1.67em 0
+
+h6
+  margin: 2.33em 0
+
+// Prevents sub and sup affecting line-height in all browsers
+// gist.github.com/413930
+sub,
+sup
+  position: relative
+  vertical-align: baseline
+
+sup
+  top: -0.5em
+
+sub
+  bottom: -0.25em
+
+// Addresses styling not present in IE7/8/9, S5, Chrome
+abbr[title]
+  border-bottom: 1px dotted
+
+hr
+  border: 0 none
+  border-bottom: 1px solid $grayLighter
+  background-color: none
+
+.pull-right
+  float: right
+
+.pull-left
+  float: left
+
+.clear
+  clear: both
+
+// remove the dotted line on clicking a li
+li
+  a:focus
+    outline: none

@@ -38,6 +38,7 @@ module.exports = function(grunt) {
       // "dist/main/release/module1.module.js": ["Modules/module1.module.js"],
       // "dist/main/release/module2.module.js": ["Modules/module2.module.js"]
     }
+
   });
 
   grunt.loadNpmTasks('grunt-clean');
