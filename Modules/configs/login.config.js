@@ -84,5 +84,5 @@ module.exports = function(grunt) {
 
   // Run the following tasks...
   // grunt.registerTask('default', 'lint:files clean tpl concat min');
-  grunt.registerTask('default', 'lint:files clean compass:prod tpl modules');
+  grunt.registerTask('default', 'lint:files clean compass:dev tpl modules');
 };

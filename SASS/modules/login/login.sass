@@ -42,7 +42,7 @@
       border: 0 none
       +background-image(linear-gradient($beige, $grayLighter))
   footer
-    padding: 0 10px
+    padding: 0
     color: $white
   a
     color: $white
@@ -57,6 +57,247 @@
       & a
         color: $white
 
+
+$bg-color: #f7f7f7
+$border-type: dotted
+$border-color: #aeaeae
+$shadow-color: #e9e9e9
+
 .desktop
   width: 100%
   height: 100%
+
+  .header
+    background-color: #73af66
+    border: 1px #3a6d2f solid
+    border-top: 0 none
+    height: 42px
+    margin: 0 auto
+
+
+  .module
+    background-color: #f7f7f7
+    border: 1px solid $grayLighter
+    margin-bottom: 1em
+    position: relative
+    p,
+    ul
+      margin: 20px
+      margin-right: 40px
+    &:after
+      content: ''
+      position: absolute
+      left: 1%
+      width: 98%
+      bottom: -2px
+      height: 1px
+      background-color: #e7e7e5
+
+  .module-header
+    padding-top: rel-size(12)
+    padding-bottom: rel-size(8)
+    border-bottom: 1px solid #9e9c99
+    // background-image: inline-image("patterns/module-header.png")
+    position: relative
+    h4
+      margin: 0 0 0 1em
+    h6
+      position: absolute
+      top: 10px
+      right: 10px
+      width: 17px
+      height: 17px
+      margin: 0
+      padding-left: 5px
+      padding-top: 2px
+      border: 1px solid #cbc9c4
+      +border-radius(50%, 50%)
+      color: #cbc9c4
+      +single-transition(all, 0.2s, ease-in)
+      &:hover
+        cursor: pointer
+        border-color: #9e9c99
+        color: #9e9c99
+      &.num
+        width: 24px
+        +border-radius(45%)
+        height: 19px
+        cursor: default
+        border-color: #7e7e7e
+        color: #7e7e7e
+        padding-left: 1px
+        text-align: center
+        top: 11px
+        &:hover
+          border-color: #7e7e7e
+          color: #7e7e7e
+
+  .module-footer
+    border-top: 1px dotted #cbc9c4
+  
+  .module
+    margin: 20px 0
+    p
+      margin: 20px
+
+  .module-fade
+    background-color: #f1eeeb
+    border: 1px solid $grayLighter
+    +single-transition(all, .3s)
+    &:hover
+      background-color: #fbfbfa
+      li,
+      a
+        color: #939391
+      a:hover
+        color: $linkColorHover
+
+  .module-header
+    text-align: center
+    padding: .4em 0
+    h4
+      margin-left: 0
+
+  .hr
+    margin-top: 0 !important
+    span
+      background-color: #F7F7F7
+
+  .row-fluid
+    .aside
+      padding-left: 5px
+      margin-bottom: 50px
+
+  .default_form
+    padding: 0 5px
+
+    input,
+    select
+      margin: 5px auto
+
+    select
+      padding: 2px 3px
+
+    .placeholding-input,
+    select
+      float: left
+      overflow: auto
+
+    .placeholding-input.mini,
+    select.mini
+      width: 19%
+      + .placeholding-input.small,
+      + select.small
+        margin-left: 5px
+        margin-right: 0
+      label
+        width: 90%
+        overflow: hidden
+        +ellipsis()
+
+    .placeholding-input.small,
+    select.small
+      width: 39%
+      margin-right: 3px
+      + .placeholding-input.small,
+      + select.small
+        margin-left: 1px
+        margin-right: 4px
+
+    .placeholding-input.med,
+    select.med
+      width: 59%
+      margin-right: 3px
+      + .placeholding-input.mini,
+      + select.mini
+        margin-right: 3px
+
+    .placeholding-input.large,
+    select.large
+      width: 100%
+
+    .placeholding-input.mini + select.mini
+      margin-right: 3px
+
+  .module
+    position: relative
+
+  #facebookLogin.connectBtn
+    margin: 20px 0 0 15px
+
+  .styled_form
+    min-height: 120px
+
+  .form_error
+    display: none
+    text-align: left
+    padding-left: 20px
+
+  .bottom-nav.footer
+    margin: 1em 1px
+    padding: 0
+    float: left
+    width: $gridWidth - 2px
+    +clearfix()
+    .bottom-nav-primary
+      list-style-type: none
+      padding: 8px
+      margin: 0
+    .bottom-nav-primary
+      float: left
+    li
+      display: inline
+      color: #a7a39a
+      &:after
+        content: '\a0\b7\a0'
+        font-weight: bold
+      &:last-child:after
+        content: ''
+    a
+      color: #a7a39a
+
+  .form_error
+    background: $warningRed
+    border: 1px #ba9f9d solid
+    margin: 30px 20px 20px
+    padding: 5px
+    text-align: center
+    +border-radius(5px)
+    color: #473d3d
+    
+  .styled_form
+    width: 85%
+    margin: 0 auto
+    label
+      font-size: 14px
+    button
+      float: right
+      margin-top: 3px
+    select
+      background: white
+
+  .default_form,
+  .styled_form
+    input,
+    select,
+    textarea
+      font-size: 14px
+      border: 1px #b8b8b8 solid
+      +box-shadow($shadow-color 0 0 0 4px)
+      +border-radius(3px)
+      margin: 10px auto
+      width: 100%
+      padding: 3px
+      color: $grayDarker
+      // +input-placeholder($grayLighter)
+      &.error
+        +box-shadow(0 0 0 4px $warningRed)
+        border-color: #cf2525
+
+  .itembox
+    +border-radius(5px)
+    border: 1px #dddddd solid
+    background-color: $shadow-color
+
+  .highlight
+    background-color: $greenPale

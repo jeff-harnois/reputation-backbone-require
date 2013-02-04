@@ -99,3 +99,95 @@ hr
 li
   a:focus
     outline: none
+
+=flat($color)
+  background-image: none
+  +single-box-shadow(none)
+  text-decoration: none
+  color: $color
+
+$base-height: 24px
+
+$bg-color: #e7e9e8
+$border-radius: 3px
+$border-width: 1px
+$border: $border-width solid #808080
+
+// default (gray)
+.btn
+  +single-transition(color, .3s)
+  display: inline-block
+  margin: 0
+  background-color: $bg-color
+  +background-image(linear-gradient(#f7fafa, #e6e8e7 80%, #e6e8e7))
+  border: $border
+  +border-radius($border-radius)
+  +single-box-shadow($grayLighter, 0, 1px, 1px, 0)
+  font-size: 12px
+  +single-text-shadow($white, 0, 1px, 0)
+  color: #232323
+  height: $base-height
+  line-height: $base-height
+  padding: 0 $base-height / 2
+  cursor: pointer
+  &:hover,
+  &:disabled,
+  &.disabled
+    +flat(#232323)
+  &:disabled,
+  &.disabled
+    pointer-events: none
+    cursor: default
+  &:active
+    +single-box-shadow(rgba($black, .2), 0, 1px, 0, 0, inset)
+
+// primary (green)
+.btn.primary
+  background-color: #6ba84f
+  +background-image(linear-gradient(#99c486, #7fb369 25%, #71ab59 75%, #6ba84f))
+  border-color: #3b6e22
+  color: #fff
+  +single-text-shadow(lighten($black, 25%), 0, -1px, 1px)
+  &:hover,
+  &.disabled
+    +flat(#fff)
+
+// GRID SYSTEM
+// ----------------------------
+
+// Fluid
+// target / context = result
+// margins' context is width of container
+// paddings' context is width of element itself
+
+// Fluid Mixins
+
+$gridWidth: (($gridColumnWidth * $gridColumns) + ($gridGutterWidth * ($gridColumns - 1)))
+
+=fluidColumns($gridColumnWidth, $gridGutterWidth)
+  .container-fluid
+    width: $gridWidth
+  [class^="span"]
+    margin-left: $gridGutterWidth
+  @for $i from 1 through $gridColumns
+    $per: (($gridColumnWidth * $i) + ($gridGutterWidth * ($i - 1))) / $gridWidth * 100%
+    .span#{$i}
+      width: $per
+    .offset#{$i}
+      margin-left: $per
+
+.container-fluid
+  margin: 0 auto
+  position: relative
+
+.row-fluid
+  width: 100%
+  min-height: 0 // IE7 hasLayout hack
+  overflow: hidden
+  & > [class^="span"]
+    float: left
+    &:first-child
+      margin-left: 0
+
+// 940px grid
++fluidColumns($gridColumnWidth, $gridGutterWidth)
