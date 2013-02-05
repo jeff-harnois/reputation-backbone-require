@@ -91,7 +91,13 @@ rbr.extractRoutes = function(hash, module) {
   return resp;
 };
 
-rbr.loadCss = function(url, id) {
+rbr.cssLoaded = function(callback) {
+  if (callback && typeof(callback) === "function") {
+    callback();
+  }
+};
+
+rbr.loadCss = function(url, id, callback) {
   var link = document.createElement("link");
 
   // create the script so it is ready to use
@@ -99,7 +105,7 @@ rbr.loadCss = function(url, id) {
   link.rel = "stylesheet";
   link.setAttribute("css-data",id);
   link.href = url;
-
+  
   // loop through each <link> tag in the head
   _.each($('head').find('link'), function(v,k) {
     // if this is a stylesheet and a custom module stylesheet (has an attr css-data)
@@ -116,5 +122,7 @@ rbr.loadCss = function(url, id) {
     document.getElementsByTagName("head")[0].appendChild(link);
   }
 
-  return true;
+  if (callback && typeof(callback) === 'function') {
+    link.addEventListener("load", rbr.cssLoaded(callback), false);
+  }
 };
