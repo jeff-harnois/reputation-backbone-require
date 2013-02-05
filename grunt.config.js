@@ -33,10 +33,7 @@ module.exports = function(grunt) {
 
     min: {
       // "dist/build.js": ["dist/build.js"],
-      "dist/main/release/app.js": ["dist/main/debug/app.js"],
-      "dist/main/release/login.module.js": ["Modules/login.module.js"]
-      // "dist/main/release/module1.module.js": ["Modules/module1.module.js"],
-      // "dist/main/release/module2.module.js": ["Modules/module2.module.js"]
+      "dist/main/release/app.js": ["dist/main/debug/app.js"]
     }
 
   });
@@ -45,6 +42,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-tpl');
 
   // Run the following tasks...
-  grunt.registerTask('default', 'lint:files clean concat min');
-  grunt.registerTask('dev', 'lint:files clean concat');
+  grunt.registerTask('default', 'lint:files clean concat');
+  grunt.registerTask('prod', 'lint:files clean concat min');
 };

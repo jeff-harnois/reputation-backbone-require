@@ -8,8 +8,8 @@ module.exports = function(grunt) {
     },
 
     clean: { 
-    //   folder: "dist",
-      tmp: "/tmp/backbone/login"
+      tmp: "/tmp/backbone/login",
+      css: "css/modules/login"
     },
 
     tpl: {
@@ -70,6 +70,19 @@ module.exports = function(grunt) {
         files: ['SASS/modules/login/*.sass'],
         tasks: ['compass:dev']
       }
+    },
+
+    min: {
+      // "dist/build.js": ["dist/build.js"],
+      "dist/main/debug/login.module.js": ["Modules/login.module.js"]
+    },
+
+    copy: {
+      main: {
+        files: [
+          {src: ['Modules/login.module.js'], dest: 'dist/main/debug/login.module.js'}
+        ]
+      }
     }
 
   });
@@ -81,8 +94,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-tpl');
   grunt.loadNpmTasks('grunt-modules');
   grunt.loadNpmTasks('grunt-compass');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   // Run the following tasks...
-  // grunt.registerTask('default', 'lint:files clean tpl concat min');
-  grunt.registerTask('default', 'lint:files clean compass:dev tpl modules');
+  grunt.registerTask('default', 'lint:files clean compass:dev tpl modules copy');
+  grunt.registerTask('prod', 'lint:files clean compass:dev tpl modules copy min');
 };

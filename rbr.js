@@ -90,3 +90,31 @@ rbr.extractRoutes = function(hash, module) {
   // return the resp, it will either be null or an array.
   return resp;
 };
+
+rbr.loadCss = function(url, id) {
+  var link = document.createElement("link");
+
+  // create the script so it is ready to use
+  link.type = "text/css";
+  link.rel = "stylesheet";
+  link.setAttribute("css-data",id);
+  link.href = url;
+
+  // loop through each <link> tag in the head
+  _.each($('head').find('link'), function(v,k) {
+    // if this is a stylesheet and a custom module stylesheet (has an attr css-data)
+    if ($(v).attr('rel') === "stylesheet" && $(v).attr('css-data')) {
+      // get rid of extras
+      if ($(v).attr('css-data') !== id) {
+        $(v).remove();
+      }
+    }
+  });
+
+  // if this css file doesn't already exist, then add it.
+  if ($('head').find('link[css-data="'+id+'"]').length === 0) {
+    document.getElementsByTagName("head")[0].appendChild(link);
+  }
+
+  return true;
+};
