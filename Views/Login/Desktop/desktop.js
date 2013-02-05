@@ -1,7 +1,6 @@
 Desktop = Backbone.View.extend({
   template: "embed",
   render: function() {
-    console.log('desktop render called');
     var isMobile = false;
     if (main.app.isMobile === true) {
       isMobile = "isMobile";
